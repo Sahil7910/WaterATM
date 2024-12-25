@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+{% block content %}
+<body>
+<h1>list Quota</h1>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">sr no</th>
+      <th scope="col">Gender</th>
+        <th scope="col">Daily Quota</th>
+      <th scope="col">Active Date</th>
+        <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+                {% for quota in quota %}
+                <tr>
+                    <td>{{ quota.id }}</td>
+                    <td>{{ quota.Gender }}</td>
+                    <td>{{ quota.DAILY_QUOTA }}</td>
+                    <td>{{ quota.ACTIVE_DATE }}</td>
+                    <td>{{ quota.Status }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">No result found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+</table>
+
+
+
+</body>
+{% endblock %}
+</html>

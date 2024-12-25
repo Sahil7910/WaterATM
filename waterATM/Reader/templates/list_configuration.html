@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+{% block content %}
+<body>
+<h1>list Configuration</h1>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">sr no</th>
+      <th scope="col">IP Address</th>
+      <th scope="col">DURATION_1LTR</th>
+      <th scope="col">DURATION_2LTR</th>
+        <th scope="col">DURATION_3LTR</th>
+        <th scope="col">DURATION_5LTR</th>
+
+    </tr>
+  </thead>
+  <tbody>
+                {% for config in config %}
+                <tr>
+                    <td>{{ config.id }}</td>
+                    <td>{{ config.SERVER_IP }}</td>
+                    <td>{{ config.DURATION_1LTR }}</td>
+                    <td>{{ config.DURATION_2LTR }}</td>
+                    <td>{{ config.DURATION_3LTR }}</td>
+                    <td>{{ config.DURATION_5LTR }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">No users found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+</table>
+
+
+
+</body>
+{% endblock %}
+</html>

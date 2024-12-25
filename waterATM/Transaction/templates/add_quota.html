@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Quota</title>
+</head>
+{% block content %}
+<body>
+
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h3 class="card-title text-center mb-4">Add Quota</h3>
+            <form action="add_quota" method="post">
+              {% csrf_token %}
+
+
+            <div class="mb-3">
+    <label for="gender" class="form-label">Gender</label>
+    <select class="form-select" id="gender" name="gender" required>
+        <option value="" selected disabled>Select gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+    </select>
+</div>
+
+
+            <div class="mb-3">
+                <label for="quota" class="form-label">Daily Quota</label>
+                <input type="text" class="form-control" name="quota" id="quota" placeholder="Enter quota" required>
+              </div>
+
+                <div class="mb-3">
+                <label for="date" class="form-label">Active Date</label>
+                <input type="Date" class="form-control" name="active_date" id="date" placeholder="Enter quota" required>
+              </div>
+
+                <div class="mb-3">
+    <label for="status" class="form-label">Status</label>
+    <select class="form-select" id="status" name="status" required>
+        <option value="" selected disabled>Select status</option>
+        <option value="1">Active</option>
+        <option value="0">Deactive</option>
+    </select>
+</div>
+
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+{% endblock %}
+</html>

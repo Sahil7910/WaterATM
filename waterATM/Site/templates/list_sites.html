@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sites</title>
+</head>
+{% block content %}
+<body>
+<h1>list Sites</h1>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">sr no</th>
+      <th scope="col">Name</th>
+      <th scope="col">Address</th>
+      <th scope="col">City</th>
+         <th scope="col">Country</th>
+    </tr>
+  </thead>
+  <tbody>
+                {% for site in sites %}
+                <tr>
+                    <td>{{ site.id }}</td>
+                    <td>{{ site.Name }}</td>
+                    <td>{{ site.Address }}</td>
+                    <td>{{ site.City }}</td>
+                    <td>{{ site.Country }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">No site found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+</table>
+
+
+
+</body>
+{% endblock %}
+</html>

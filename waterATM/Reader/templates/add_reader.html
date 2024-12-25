@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Reader</title>
+</head>
+{% block content %}
+<body>
+
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h3 class="card-title text-center mb-4">Add Reader</h3>
+            <form action="add_reader" method="post">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="position" class="form-label">Position:</label>
+                <input type="number" class="form-control" name="position" id="position" placeholder="Enter position" required>
+              </div>
+
+                <div class="mb-3">
+                <label for="mac" class="form-label">MAC:</label>
+                <input type="text" class="form-control" name="mac" id="mac" placeholder="Enter MAC" required>
+              </div>
+
+                 <div class="mb-3">
+                <label for="idate" class="form-label">Install Date</label>
+                <input type="Date" class="form-control" name="idate" id="idate" placeholder="Enter MAC" required>
+              </div>
+
+
+
+            <div class="mb-3">
+    <label for="status" class="form-label">Status</label>
+    <select class="form-select" id="status" name="status" required>
+        <option value="" selected disabled>Select status</option>
+        <option value="1">Active</option>
+        <option value="0">Deactive</option>
+    </select>
+</div>
+
+       <div class="mb-3">
+                <label for="Config" class="form-label">Configuration</label>
+                <select class="form-select" id="Config" name="Config" required>
+                    <option value="" selected disabled>Select a Config</option>
+                    {% for config in config %}
+                    <option value="{{ config.id }}">{{ config.SERVER_IP }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="sites" class="form-label">sites</label>
+                <select class="form-select" id="sites" name="sites" required>
+                    <option value="" selected disabled>Select a sites</option>
+                    {% for sites in sites %}
+                    <option value="{{ sites.id }}">{{ sites.Name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+
+
+
+
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+{% endblock %}
+</html>

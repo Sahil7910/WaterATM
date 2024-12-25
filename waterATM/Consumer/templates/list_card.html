@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+{% block content %}
+<body>
+<h1>list User</h1>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">sr no</th>
+      <th scope="col">Card Number</th>
+      <th scope="col">Status</th>
+      <th scope="col">Consumer</th>
+    </tr>
+  </thead>
+  <tbody>
+                {% for cards in cards %}
+                <tr>
+                    <td>{{ cards.id }}</td>
+                    <td>{{ cards.number }}</td>
+                    <td>{{ cards.status }}</td>
+                    <td>{{ cards.consumer_id }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">No cards found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+</table>
+
+
+
+</body>
+{% endblock %}
+</html>
