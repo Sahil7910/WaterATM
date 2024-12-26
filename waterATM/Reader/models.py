@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 from Site.models import Site
 
 
@@ -14,14 +14,14 @@ class Configuration(models.Model):
 
 
 class Reader(models.Model):
-    id = models.AutoField(primary_key=True)  # Auto-incrementing ID
-    position = models.IntegerField()  # Position of the reader
-    mac = models.CharField(max_length=100, unique=True)  # Unique MAC address
-    install_date = models.DateTimeField(auto_now_add=True)  # Installation date
-    last_seen_timestamp = models.DateTimeField(null=True, blank=True)  # Last seen timestamp
-    status = models.CharField(max_length=10)  # Status with predefined choices
-    config = models.ForeignKey(Configuration, on_delete=models.SET_NULL, null=True,blank=True)
-    site = models.ForeignKey(Site, on_delete=models.CASCADE )  # Foreign key to Site model
+    id = models.AutoField(primary_key=True)
+    position = models.IntegerField()
+    mac = models.CharField(max_length=100, unique=True)
+    install_date = models.DateTimeField(default=timezone.now)
+    last_seen_timestamp = models.DateTimeField(default=timezone.now)
+    status = models.CharField(max_length=10)
+    config = models.ForeignKey(Configuration, on_delete=models.CASCADE)
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Reader {self.mac} - Status: {self.status}"

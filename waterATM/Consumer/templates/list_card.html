@@ -23,7 +23,13 @@
                 <tr>
                     <td>{{ cards.id }}</td>
                     <td>{{ cards.number }}</td>
-                    <td>{{ cards.status }}</td>
+                    <td>
+                     {% if cards.status == "1" %}
+                        Active
+                    {% else %}
+                        Deactive
+                    {% endif %}
+                    </td>
                     <td>{{ cards.consumer_id }}</td>
                 </tr>
                 {% empty %}

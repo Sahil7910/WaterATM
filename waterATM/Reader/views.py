@@ -1,8 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
-from Reader.models import Configuration
-
+from Reader.models import Configuration,Reader
+from django.http import JsonResponse
+from django.utils.timezone import now
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
+from Consumer.models import Membership
 from Site.models import Site
+
 
 
 # Create your views here.
@@ -14,12 +19,50 @@ def add_reader(request):
         'config': config,
         'sites':sites
         }
+    if request.method == 'POST':
+        position= request.POST.get('position')
+        mac = request.POST.get('mac')
+        installDate= request.POST.get('idate')
+        Status = request.POST.get('status')
+        config_id = request.POST.get('Config')
+        site_id = request.POST.get('sites')
+
+        configuration = get_object_or_404(Configuration, id=config_id)
+        sites = get_object_or_404(Site, id=site_id)
+
+        Reader.objects.create(position=position, mac=mac, install_date=installDate, status=Status, config=configuration, site=sites)
 
     return render(request, 'add_reader.html',context)
 
 
+@csrf_exempt
+@require_http_methods(["POST"])
+def keep_live(request):
+
+    mac_id = request.GET.get('macid')
+
+    if not mac_id:
+        return JsonResponse({'error': 'MAC ID is required.'}, status=400)
+
+    try:
+
+        reader = get_object_or_404(Reader, mac=mac_id)
+
+
+        reader.last_seen_timestamp = now()
+        reader.save()
+
+
+        return JsonResponse({'success': True, 'message': 'Last seen timestamp updated.'}, status=200)
+    except Reader.DoesNotExist:
+        return JsonResponse({'error': 'Reader not found.'}, status=404)
+
+
+
+
 def list_reader(request):
-    return render(request, 'list_reader.html')
+    reader = Reader.objects.all()
+    return render(request, 'list_reader.html', {'reader': reader})
 
 
 def add_config(request):
@@ -47,6 +90,7 @@ def add_config(request):
 def list_config(request):
 
     config= Configuration.objects.all()
+    memberships=Membership.objects.all()
 
     context = {
         'config': config,
@@ -54,3 +98,5 @@ def list_config(request):
     }
 
     return render(request, 'list_configuration.html',{'config':config})
+
+

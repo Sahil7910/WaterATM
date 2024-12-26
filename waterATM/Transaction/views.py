@@ -28,4 +28,6 @@ def list_quota(request):
     return render(request, 'list_quota.html',{'quota': quota})
 
 def list_transaction(request):
-    return render(request,'list_transaction.html')
+
+    transaction=Transaction.objects.all()
+    return render(request,'list_transaction.html',{'transaction':transaction})

@@ -8,14 +8,14 @@ from Site.models import Site
 def add_site(request):
 
     if request.method == 'POST':
-        print(request.POST)  # Log all POST data to confirm what is being sent
+        print(request.POST)
 
         name = request.POST.get('name')
         address = request.POST.get('address')
         city = request.POST.get('city')
         country = request.POST.get('country')
 
-        print(name, " ", address, " ", city,"", country)  # Debug output
+        print(name, " ", address, " ", city,"", country)
 
         # Ensure all fields are populated
         if not all([name, address, city, country]):

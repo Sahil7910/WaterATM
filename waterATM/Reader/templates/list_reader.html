@@ -3,11 +3,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Reader List</title>
 </head>
 {% block content %}
 <body>
-<h1>list reader</h1>
+<h1>list Reader</h1>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">sr no</th>
+      <th scope="col">Position</th>
+      <th scope="col">Mac</th>
+      <th scope="col">Install Date</th>
+        <th scope="col">Last Seen</th>
+        <th scope="col">Status</th>
+        <th scope="col">Configuration</th>
+        <th scope="col">Sites</th>
+
+    </tr>
+  </thead>
+  <tbody>
+                {% for reader in reader %}
+                <tr>
+                    <td>{{ reader.id }}</td>
+                    <td>{{ reader.position }}</td>
+                    <td>{{ reader.mac }}</td>
+                    <td>{{ reader.install_date }}</td>
+                    <td>{{ reader.last_seen_timestamp}}</td>
+                    <td>
+    {% if reader.status == "1" %}
+        Active
+    {% else %}
+        Deactive
+    {% endif %}
+</td>
+                    <td>{{ reader.config.SERVER_IP }}</td>
+                    <td>{{ reader.site.Name }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">No users found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+</table>
+
+
+
 </body>
 {% endblock %}
 </html>
