@@ -17,6 +17,7 @@
       <th scope="col">Address</th>
       <th scope="col">City</th>
          <th scope="col">Country</th>
+        <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -27,6 +28,13 @@
                     <td>{{ site.Address }}</td>
                     <td>{{ site.City }}</td>
                     <td>{{ site.Country }}</td>
+                    <td>
+
+                    <form method="post" action="{% url 'delete_site' site.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>

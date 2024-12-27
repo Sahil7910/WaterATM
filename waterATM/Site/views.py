@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404,redirect
 from django.http import HttpResponse
+from django.contrib import messages
 
 from Site.models import Site
 # Create your views here.
@@ -32,4 +33,11 @@ def add_site(request):
 def list_sites(request):
     sites = Site.objects.all()
     return render(request, 'list_sites.html', {'sites': sites})
+
+def delete_site(request, site_id):
+    if request.method == 'POST':
+        site = get_object_or_404(Site, id=site_id)
+        site.delete()
+        messages.success(request, 'Site deleted successfully.')
+    return redirect('list_sites')
 

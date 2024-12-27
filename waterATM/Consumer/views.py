@@ -202,13 +202,25 @@ def get_quota(request):
         return JsonResponse({'error': 'Quota not found for the specified gender.'}, status=404)
 
     # Calculate total and available balance quota
-    total_allowed_quota = int(quota.DAILY_QUOTA)
-    consumed_qty = Transaction.objects.filter(MEMBERSHIP_ID=card).aggregate(
-        consumed=Sum('CONSUMED_QTY'))['consumed'] or 0
-    balance_available_quota = total_allowed_quota - consumed_qty
+    # total_allowed_quota = int(quota.DAILY_QUOTA)
+    # consumed_qty = Transaction.objects.filter(MEMBERSHIP_ID=card).aggregate(
+    #     consumed=Sum('CONSUMED_QTY'))['consumed'] or 0
+    # balance_available_quota = total_allowed_quota - consumed_qty
+
+    daily_quota = int(quota.DAILY_QUOTA)
+    today = date.today()
+    total_consumed_today = Transaction.objects.filter(
+        MEMBERSHIP_ID=card,
+        Txn_DateTime__date=today
+    ).aggregate(Sum('CONSUMED_QTY'))['CONSUMED_QTY__sum'] or 0
+
+    if (total_consumed_today + total_consumed_today) > daily_quota:
+        return JsonResponse({'error': 'Insufficient quota for the day.'}, status=400)
+
+    balance_qty = daily_quota-total_consumed_today
 
 
     return JsonResponse({
-        'total_allowed_quota': total_allowed_quota,
-        'balance_available_quota': balance_available_quota
+        'total_allowed_quota': daily_quota,
+        'balance_available_quota': balance_qty
     }, status=200)
