@@ -7,10 +7,10 @@ from Site.models import Site
 class Configuration(models.Model):
     id = models.AutoField(primary_key=True)
     SERVER_IP = models.CharField(max_length= 100)
-    DURATION_1LTR = models.IntegerField(max_length = 20)
-    DURATION_2LTR = models.IntegerField(max_length = 20)
-    DURATION_3LTR = models.IntegerField(max_length = 20)
-    DURATION_5LTR = models.IntegerField(max_length = 20)
+    DURATION_1LTR = models.IntegerField()
+    DURATION_2LTR = models.IntegerField()
+    DURATION_3LTR = models.IntegerField()
+    DURATION_5LTR = models.IntegerField()
 
 
 class Reader(models.Model):

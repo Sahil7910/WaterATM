@@ -29,7 +29,7 @@
                     <td>{{ reader.id }}</td>
                     <td>{{ reader.position }}</td>
                     <td>{{ reader.mac }}</td>
-                    <td>{{ reader.install_date }}</td>
+                    <td>{{ reader.install_date | date:"d/m/Y" }}</td>
                     <td>{{ reader.last_seen_timestamp}}</td>
                     <td>
     {% if reader.status == "1" %}

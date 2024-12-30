@@ -5,14 +5,16 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 
-class Consumer(AbstractUser):
+class Consumer(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
     gender = models.CharField(max_length=10)
-    age = models.PositiveIntegerField()
+    age = models.IntegerField(null=True, blank=True, default=0)
 
     def __str__(self):
         return self.name
+
+
 
 class Membership(models.Model):
     id = models.AutoField(primary_key=True)

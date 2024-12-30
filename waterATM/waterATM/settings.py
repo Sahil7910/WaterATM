@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'Consumer',
     'Reader',
     'Site',
-    'Transaction'
+    'Transaction',
+    'login'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'login.middleware.CacheControlMiddleware',
 ]
 
 ROOT_URLCONF = 'waterATM.urls'
@@ -84,7 +86,8 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = 'Consumer.Consumer'
+AUTH_USER_MODEL = 'auth.User'
+
 
 
 # Password validation

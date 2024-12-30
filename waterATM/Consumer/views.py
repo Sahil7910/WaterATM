@@ -9,10 +9,13 @@ from django.db.models import Sum
 from Consumer.models import Consumer,Membership
 from Reader.models import Reader
 from Transaction.models import Quota,Transaction
+from django.contrib import messages
 
 
 def home(request):
     return render(request, 'base.html')
+
+
 
 def add_user(request):
     if request.method == 'POST':
@@ -38,6 +41,11 @@ def add_user(request):
 def list_user(request):
     users = Consumer.objects.all()
     return render(request, 'list_user.html', {'users': users})
+
+def delete_consumer(request, consumer_id):
+    consumer = get_object_or_404(Consumer, id=consumer_id)
+    consumer.delete()
+    return redirect('list_user')
 
 
 def add_card(request):
