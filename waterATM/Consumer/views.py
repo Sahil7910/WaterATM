@@ -54,9 +54,7 @@ def add_card(request):
         status = request.POST.get('status')
         consumer_id = request.POST.get('consumer')
 
-
         consumer = Consumer.objects.get(id=consumer_id)
-
 
         Membership.objects.create(number=number, status=status, consumer_id=consumer)
 
